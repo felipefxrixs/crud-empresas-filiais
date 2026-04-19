@@ -1,0 +1,45 @@
+services:
+
+  mysql:
+    image: mysql:8.4
+    container_name: empresas_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: empresas_filiais
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./empresas-filiais
+    container_name: empresas_backend
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/empresas_filiais?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Belem
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: user
+    ports:
+      - "8080:8080"
+    restart: always
+
+  frontend:
+    build: ./empresas-front
+    container_name: empresas_frontend
+    depends_on:
+      - backend
+    ports:
+      - "9000:9000"
+
+volumes:
+  mysql_data:
