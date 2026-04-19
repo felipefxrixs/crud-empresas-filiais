@@ -1,7 +1,6 @@
 .DS_Store
 .thumbs.db
 node_modules
-Thumbs.db
 
 # Quasar core related directories
 .quasar
@@ -33,16 +32,3 @@ yarn-error.log*
 # local .env files
 .env.local*
 
-# Backend 
-target/
-*.class
-*.jar
-empresas-filiais/.mvn-local/
-
-# IDE
-.vscode/
-*.iml
-
-# ENV
-.env
-.env.*
