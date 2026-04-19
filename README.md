@@ -48,6 +48,7 @@ Liste tudo que o desenvolvedor precisa ter instalado antes de começar.
 - npm 10 ou superior
 - MySQL 8 ou superior
 - Git
+- Docker Desktop
 
 ### Instalação e Configuração     
 
